@@ -1,0 +1,1061 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pizza Menu - Ice Cream Portfolio</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #feca57 0%, #ff9ff3 50%, #ff6b6b 100%);
+            min-height: 100vh;
+            background-attachment: fixed;
+        }
+
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 20px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            color: #ff9ff3;
+            text-decoration: none;
+        }
+
+        .back-btn {
+            padding: 10px 25px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .back-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .cart-btn {
+            padding: 10px 25px;
+            background: linear-gradient(135deg, #feca57, #ff9ff3);
+            color: #333;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(254, 202, 87, 0.3);
+        }
+
+        .cart-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(254, 202, 87, 0.4);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .page-title {
+            text-align: center;
+            color: white;
+            font-size: 56px;
+            margin-bottom: 15px;
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3);
+            font-weight: 700;
+            letter-spacing: 2px;
+            animation: titleGlow 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes titleGlow {
+            from {
+                text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3);
+            }
+
+            to {
+                text-shadow: 3px 3px 20px rgba(255, 255, 255, 0.5), 0 0 30px rgba(254, 202, 87, 0.4);
+            }
+        }
+
+        .page-subtitle {
+            text-align: center;
+            color: rgba(255, 255, 255, 0.95);
+            font-size: 20px;
+            margin-bottom: 50px;
+            font-weight: 500;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+        }
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .menu-item {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        .menu-item:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .item-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-bottom: 3px solid #feca57;
+        }
+
+        .item-content {
+            padding: 20px;
+        }
+
+        .item-name {
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        .item-description {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+
+        .item-price {
+            font-size: 28px;
+            font-weight: bold;
+            color: #ff9ff3;
+            margin-bottom: 15px;
+        }
+
+        .add-to-cart {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #feca57, #ff9ff3);
+            color: #333;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(254, 202, 87, 0.3);
+        }
+
+        .add-to-cart:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(254, 202, 87, 0.4);
+        }
+
+        .add-to-cart:active {
+            transform: scale(0.98);
+        }
+
+        /* Cart Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            background-color: white;
+            margin: 5% auto;
+            padding: 0;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 500px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            animation: modalSlide 0.3s ease;
+        }
+
+        @keyframes modalSlide {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .modal-header {
+            padding: 20px 30px;
+            background: linear-gradient(135deg, #feca57, #ff9ff3);
+            color: #333;
+            border-radius: 20px 20px 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-header h2 {
+            margin: 0;
+            font-size: 24px;
+        }
+
+        .close-btn {
+            font-size: 30px;
+            cursor: pointer;
+            color: #333;
+            line-height: 1;
+        }
+
+        .close-btn:hover {
+            opacity: 0.8;
+        }
+
+        .modal-body {
+            padding: 30px;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+            background: #f9f9f9;
+            border-radius: 10px;
+            margin-bottom: 10px;
+        }
+
+        .cart-empty {
+            text-align: center;
+            color: #999;
+            padding: 40px;
+            font-size: 16px;
+        }
+
+        .modal-footer {
+            padding: 20px 30px;
+            border-top: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .cart-total {
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .checkout-btn {
+            padding: 15px 30px;
+            background: linear-gradient(135deg, #4CAF50, #45a049);
+            color: white;
+            border: none;
+            border-radius: 25px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .checkout-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(76, 175, 80, 0.3);
+        }
+
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, #4CAF50, #45a049);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            z-index: 2000;
+            animation: slideIn 0.3s ease;
+            font-weight: 600;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .page-title {
+                font-size: 32px;
+            }
+
+            .menu-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .nav-container {
+                flex-wrap: wrap;
+                gap: 10px;
+            }
+
+            .back-btn,
+            .cart-btn {
+                padding: 8px 15px;
+                font-size: 14px;
+            }
+        }
+
+        /* VIP 3D Premium Styles */
+        .menu-item {
+            transform-style: preserve-3d;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .menu-item:hover {
+            transform: translateY(-15px) rotateX(5deg) rotateY(-5deg) scale(1.02);
+            box-shadow:
+                0 25px 50px rgba(0, 0, 0, 0.3),
+                0 10px 20px rgba(254, 202, 87, 0.2);
+        }
+
+        .item-image {
+            transition: all 0.4s ease;
+            transform: translateZ(20px);
+        }
+
+        .menu-item:hover .item-image {
+            transform: translateZ(40px) scale(1.05);
+        }
+
+        /* VIP Modal 3D Effects */
+        .vip-modal {
+            transform-style: preserve-3d;
+            perspective: 1000px;
+            background: linear-gradient(145deg, #ffffff 0%, #f8f9fa 100%);
+            border-radius: 30px;
+            box-shadow:
+                0 30px 60px rgba(0, 0, 0, 0.3),
+                0 15px 30px rgba(102, 126, 234, 0.2),
+                inset 0 1px 0 rgba(255, 255, 255, 0.8);
+        }
+
+        .vip-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 30px 30px 0 0;
+            transform: translateZ(30px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+        }
+
+        .vip-header h2 {
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+            font-size: 28px;
+        }
+
+        /* VIP Form Inputs */
+        .delivery-credentials {
+            background: linear-gradient(145deg, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: 20px;
+            padding: 25px;
+            margin-top: 20px;
+            box-shadow:
+                inset 0 2px 4px rgba(0, 0, 0, 0.05),
+                0 4px 15px rgba(0, 0, 0, 0.08);
+            transform-style: preserve-3d;
+        }
+
+        .delivery-title {
+            font-size: 22px;
+            color: #667eea;
+            margin-bottom: 20px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+
+        .form-group label {
+            font-size: 14px;
+            font-weight: 600;
+            color: #495057;
+            margin-bottom: 5px;
+        }
+
+        .vip-input {
+            padding: 12px 16px;
+            border: 2px solid #e9ecef;
+            border-radius: 12px;
+            font-size: 14px;
+            background: white;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+        }
+
+        .vip-input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow:
+                0 0 0 4px rgba(102, 126, 234, 0.15),
+                0 4px 12px rgba(102, 126, 234, 0.2);
+            transform: translateY(-2px);
+        }
+
+        /* VIP Delivery Options */
+        .delivery-options {
+            margin-top: 20px;
+        }
+
+        .delivery-options h4 {
+            color: #495057;
+            margin-bottom: 12px;
+        }
+
+        .vip-option {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            margin-bottom: 10px;
+            background: white;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+        }
+
+        .vip-option:hover {
+            border-color: #667eea;
+            transform: translateX(5px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.15);
+        }
+
+        .vip-option input[type="radio"] {
+            margin-right: 12px;
+            width: 20px;
+            height: 20px;
+            accent-color: #667eea;
+        }
+
+        .option-content {
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+        }
+
+        .option-content strong {
+            color: #333;
+            font-size: 16px;
+        }
+
+        .option-content small {
+            color: #6c757d;
+        }
+
+        .option-price {
+            font-weight: bold;
+            color: #28a745;
+            font-size: 18px;
+        }
+
+        /* VIP Buttons */
+        .vip-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 15px 35px;
+            font-size: 18px;
+            font-weight: 700;
+            border-radius: 30px;
+            box-shadow:
+                0 10px 30px rgba(102, 126, 234, 0.4),
+                0 4px 15px rgba(0, 0, 0, 0.1);
+            transform-style: preserve-3d;
+            transition: all 0.3s ease;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+        }
+
+        .vip-btn:hover {
+            transform: translateY(-3px) translateZ(10px);
+            box-shadow:
+                0 20px 40px rgba(102, 126, 234, 0.5),
+                0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .vip-total {
+            font-size: 24px;
+            font-weight: 800;
+            color: #667eea;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+        }
+
+        /* VIP Add to Cart Button */
+        .add-to-cart {
+            background: linear-gradient(135deg, #feca57 0%, #ff9ff3 100%);
+            padding: 12px 24px;
+            font-weight: 700;
+            border-radius: 25px;
+            box-shadow:
+                0 8px 20px rgba(254, 202, 87, 0.3),
+                0 4px 10px rgba(0, 0, 0, 0.1);
+            transform-style: preserve-3d;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .add-to-cart:hover {
+            transform: translateY(-4px) translateZ(10px) scale(1.05);
+            box-shadow:
+                0 15px 35px rgba(254, 202, 87, 0.4),
+                0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Cart Item 3D Effect */
+        .cart-item {
+            background: linear-gradient(145deg, #ffffff 0%, #f8f9fa 100%);
+            border-radius: 15px;
+            padding: 15px;
+            margin-bottom: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            transform-style: preserve-3d;
+            transition: all 0.3s ease;
+        }
+
+        .cart-item:hover {
+            transform: translateX(5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+        }
+
+        @media (max-width: 768px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .menu-item:hover {
+                transform: translateY(-10px) scale(1.02);
+            }
+
+            .vip-modal {
+                border-radius: 20px;
+            }
+
+            .vip-header {
+                border-radius: 20px 20px 0 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header class="header">
+        <div class="nav-container">
+            <a href="index.html" class="logo">🍕 Pizza</a>
+            <div style="display: flex; gap: 15px; align-items: center;">
+                <a href="index.html" class="back-btn">← Back to Menu</a>
+                <a href="#" class="cart-btn" onclick="openCart(); return false;">🛒 Cart (<span
+                        id="cart-count">0</span>)</a>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <h1 class="page-title">🍕 Fresh Pizza</h1>
+        <p class="page-subtitle">Hot, cheesy, and made to order</p>
+
+        <div class="menu-grid">
+            <div class="menu-item">
+                <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=500" alt="Margherita Pizza"
+                    class="item-image" onerror="this.src='https://placehold.co/300x200?text=Margherita'">
+                <div class="item-content">
+                    <h3 class="item-name">🧀 Margherita Classic</h3>
+                    <p class="item-description">Fresh mozzarella, tomato sauce, and basil on our hand-tossed crust</p>
+                    <div class="item-price">$10.99</div>
+                    <button class="add-to-cart" onclick="addToCart('Margherita Classic', 10.99)">Add to Cart</button>
+                </div>
+            </div>
+
+            <div class="menu-item">
+                <img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?w=500" alt="Pepperoni Pizza"
+                    class="item-image" onerror="this.src='https://placehold.co/300x200?text=Pepperoni'">
+                <div class="item-content">
+                    <h3 class="item-name">🍕 Pepperoni Feast</h3>
+                    <p class="item-description">Loaded with premium pepperoni and extra mozzarella cheese</p>
+                    <div class="item-price">$13.99</div>
+                    <button class="add-to-cart" onclick="addToCart('Pepperoni Feast', 13.99)">Add to Cart</button>
+                </div>
+            </div>
+
+            <div class="menu-item">
+                <img src="https://images.unsplash.com/photo-1574071318508-1cdbab80d002?w=500" alt="Veggie Pizza"
+                    class="item-image" onerror="this.src='https://placehold.co/300x200?text=Veggie'">
+                <div class="item-content">
+                    <h3 class="item-name">🥬 Garden Veggie</h3>
+                    <p class="item-description">Bell peppers, onions, mushrooms, olives, and tomatoes</p>
+                    <div class="item-price">$12.99</div>
+                    <button class="add-to-cart" onclick="addToCart('Garden Veggie', 12.99)">Add to Cart</button>
+                </div>
+            </div>
+
+            <div class="menu-item">
+                <img src="https://www.allrecipes.com/thmb/ee0daLeNNIUcrKbm5nxwFXheMDM=/0x512/filters:no_upscale():max_bytes(150000):strip_icc()/AR-24878-bbq-chicken-pizza-beauty-4x3-39cd80585ad04941914dca4bd82eae3d.jpg"
+                    alt="BBQ Chicken Pizza" class="item-image"
+                    onerror="this.src='https://placehold.co/300x200?text=BBQ+Chicken'">
+                <div class="item-content">
+                    <h3 class="item-name">🍗 BBQ Chicken</h3>
+                    <p class="item-description">Grilled chicken, BBQ sauce, red onions, and cilantro</p>
+                    <div class="item-price">$14.99</div>
+                    <button class="add-to-cart" onclick="addToCart('BBQ Chicken', 14.99)">Add to Cart</button>
+                </div>
+            </div>
+
+            <div class="menu-item">
+                <img src="https://images.unsplash.com/photo-1571407970349-bc81e7e96d47?w=500" alt="Hawaiian Pizza"
+                    class="item-image" onerror="this.src='https://placehold.co/300x200?text=Hawaiian'">
+                <div class="item-content">
+                    <h3 class="item-name">🍍 Hawaiian Delight</h3>
+                    <p class="item-description">Ham, pineapple chunks, and mozzarella on sweet tomato sauce</p>
+                    <div class="item-price">$13.49</div>
+                    <button class="add-to-cart" onclick="addToCart('Hawaiian Delight', 13.49)">Add to Cart</button>
+                </div>
+            </div>
+
+            <div class="menu-item">
+                <img src="https://images.unsplash.com/photo-1593560708920-61dd98c46a4e?w=500" alt="Meat Lovers Pizza"
+                    class="item-image" onerror="this.src='https://placehold.co/300x200?text=Meat+Lovers'">
+                <div class="item-content">
+                    <h3 class="item-name">🥩 Meat Lovers</h3>
+                    <p class="item-description">Pepperoni, sausage, bacon, ham, and ground beef</p>
+                    <div class="item-price">$15.99</div>
+                    <button class="add-to-cart" onclick="addToCart('Meat Lovers', 15.99)">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cart Modal with Delivery -->
+    <div id="cart-modal" class="modal">
+        <div class="modal-content vip-modal">
+            <div class="modal-header vip-header">
+                <h2>🛒 Your Cart</h2>
+                <span class="close-btn" onclick="closeCart()">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div id="cart-items">
+                    <p class="cart-empty">Your cart is empty 🛒</p>
+                </div>
+
+                <!-- VIP Delivery Details Section -->
+                <div class="delivery-credentials" id="delivery-section" style="display: none;">
+                    <h3 class="delivery-title">📦 Delivery Details</h3>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>👤 Full Name *</label>
+                            <input type="text" id="delivery-name" placeholder="Enter your name" class="vip-input">
+                        </div>
+                        <div class="form-group">
+                            <label>📞 Phone Number *</label>
+                            <input type="tel" id="delivery-phone" placeholder="+1 234 567 8900" class="vip-input">
+                        </div>
+                        <div class="form-group full-width">
+                            <label>📍 Delivery Address *</label>
+                            <textarea id="delivery-address" placeholder="Street address, apartment, building, floor..."
+                                class="vip-input" rows="3"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>🏙️ City</label>
+                            <input type="text" id="delivery-city" placeholder="City name" class="vip-input">
+                        </div>
+                        <div class="form-group">
+                            <label>📮 Zip Code</label>
+                            <input type="text" id="delivery-zip" placeholder="12345" class="vip-input">
+                        </div>
+                        <div class="form-group full-width">
+                            <label>📝 Special Instructions</label>
+                            <textarea id="delivery-instructions"
+                                placeholder="Any special requests, allergies, delivery notes..." class="vip-input"
+                                rows="2"></textarea>
+                        </div>
+                    </div>
+
+                    <!-- Delivery Options -->
+                    <div class="delivery-options">
+                        <h4>🚚 Delivery Speed</h4>
+                        <label class="option-label vip-option">
+                            <input type="radio" name="delivery-speed" value="standard" checked>
+                            <span class="option-content">
+                                <strong>Standard Delivery</strong>
+                                <span class="option-price">FREE</span>
+                                <small>30-45 minutes</small>
+                            </span>
+                        </label>
+                        <label class="option-label vip-option">
+                            <input type="radio" name="delivery-speed" value="express">
+                            <span class="option-content">
+                                <strong>Express Delivery ⚡</strong>
+                                <span class="option-price">$4.99</span>
+                                <small>15-20 minutes - Priority</small>
+                            </span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer vip-footer">
+                <div class="cart-total vip-total">Total: $<span id="cart-total">0.00</span></div>
+                <button class="checkout-btn vip-btn" onclick="checkout()">Proceed to Checkout →</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Cart Management
+        let cart = JSON.parse(localStorage.getItem('sharedCart')) || [];
+
+        function saveCart() {
+            localStorage.setItem('sharedCart', JSON.stringify(cart));
+        }
+
+        function addToCart(name, price) {
+            const existingItem = cart.find(item => item.name === name);
+
+            if (existingItem) {
+                existingItem.quantity++;
+            } else {
+                cart.push({
+                    name: name,
+                    price: price,
+                    quantity: 1
+                });
+            }
+
+            updateCartCount();
+            updateCartDisplay();
+            showNotification(`${name} added to cart!`);
+        }
+
+        function updateCartCount() {
+            const count = cart.reduce((total, item) => total + item.quantity, 0);
+            document.getElementById('cart-count').textContent = count;
+        }
+
+        function updateCartDisplay() {
+            const cartItems = document.getElementById('cart-items');
+            const deliverySection = document.getElementById('delivery-section');
+
+            if (cart.length === 0) {
+                cartItems.innerHTML = '<p class="cart-empty">Your cart is empty 🛒</p>';
+                document.getElementById('cart-total').textContent = '0.00';
+                if (deliverySection) deliverySection.style.display = 'none';
+                return;
+            }
+
+            let html = '';
+            let total = 0;
+
+            cart.forEach((item, index) => {
+                const itemTotal = item.price * item.quantity;
+                total += itemTotal;
+
+                html += `
+                    <div class="cart-item">
+                        <div>
+                            <strong>${item.name}</strong><br>
+                            $${item.price.toFixed(2)} x ${item.quantity}
+                        </div>
+                        <div>
+                            <button onclick="updateQuantity(${index}, -1)" style="padding: 5px 10px; margin-right: 5px; background: #ff6b6b; color: white; border: none; border-radius: 5px; cursor: pointer;">-</button>
+                            <button onclick="updateQuantity(${index}, 1)" style="padding: 5px 10px; margin-right: 5px; background: #4CAF50; color: white; border: none; border-radius: 5px; cursor: pointer;">+</button>
+                            <button onclick="removeFromCart(${index})" style="padding: 5px 10px; background: #ff4444; color: white; border: none; border-radius: 5px; cursor: pointer;">🗑️</button>
+                        </div>
+                    </div>
+                `;
+            });
+
+            cartItems.innerHTML = html;
+            document.getElementById('cart-total').textContent = total.toFixed(2);
+            if (deliverySection) deliverySection.style.display = 'block';
+        }
+
+        function updateQuantity(index, change) {
+            cart[index].quantity += change;
+
+            if (cart[index].quantity <= 0) {
+                cart.splice(index, 1);
+            }
+
+            updateCartCount();
+            updateCartDisplay();
+            saveCart();
+        }
+
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            updateCartCount();
+            updateCartDisplay();
+            saveCart();
+        }
+
+        function openCart() {
+            document.getElementById('cart-modal').style.display = 'block';
+            updateCartDisplay();
+        }
+
+        function closeCart() {
+            document.getElementById('cart-modal').style.display = 'none';
+        }
+
+        function checkout() {
+            if (cart.length === 0) {
+                showNotification('Your cart is empty!');
+                return;
+            }
+
+            // Validate delivery fields
+            const name = document.getElementById('delivery-name')?.value.trim();
+            const phone = document.getElementById('delivery-phone')?.value.trim();
+            const address = document.getElementById('delivery-address')?.value.trim();
+
+            if (!name) {
+                showNotification('Please enter your name!');
+                document.getElementById('delivery-name')?.focus();
+                return;
+            }
+            if (!phone) {
+                showNotification('Please enter your phone number!');
+                document.getElementById('delivery-phone')?.focus();
+                return;
+            }
+            if (!address) {
+                showNotification('Please enter your delivery address!');
+                document.getElementById('delivery-address')?.focus();
+                return;
+            }
+
+            const deliverySpeed = document.querySelector('input[name="delivery-speed"]:checked')?.value || 'standard';
+            const deliveryFee = deliverySpeed === 'express' ? 4.99 : 0;
+            const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            const total = subtotal + deliveryFee;
+
+            // Save order to localStorage
+            const orders = JSON.parse(localStorage.getItem('orders') || '[]');
+            orders.push({
+                id: Date.now(),
+                customer: name,
+                phone: phone,
+                address: address,
+                city: document.getElementById('delivery-city')?.value || '',
+                zip: document.getElementById('delivery-zip')?.value || '',
+                instructions: document.getElementById('delivery-instructions')?.value || '',
+                deliverySpeed: deliverySpeed,
+                items: cart,
+                total: total,
+                date: new Date().toLocaleString()
+            });
+            localStorage.setItem('orders', JSON.stringify(orders));
+
+            alert(`🎉 VIP Order Placed Successfully!\n\n👤 ${name}\n📞 ${phone}\n📍 ${address}\n🚚 ${deliverySpeed === 'express' ? 'Express (15-20 min) - $4.99' : 'Standard (30-45 min) - FREE'}\n\n💰 Total: $${total.toFixed(2)}\n\nThank you for your order! We'll deliver soon! 🚀`);
+
+            cart = [];
+            updateCartCount();
+            closeCart();
+
+            // Clear delivery form
+            document.getElementById('delivery-name').value = '';
+            document.getElementById('delivery-phone').value = '';
+            document.getElementById('delivery-address').value = '';
+            document.getElementById('delivery-city').value = '';
+            document.getElementById('delivery-zip').value = '';
+            document.getElementById('delivery-instructions').value = '';
+        }
+
+        function showNotification(message) {
+            const notification = document.createElement('div');
+            notification.className = 'notification';
+            notification.textContent = message;
+            document.body.appendChild(notification);
+
+            setTimeout(() => {
+                notification.style.animation = 'slideIn 0.3s ease reverse';
+                setTimeout(() => notification.remove(), 300);
+            }, 2000);
+        }
+
+        window.onclick = function (event) {
+            const modal = document.getElementById('cart-modal');
+            if (event.target === modal) {
+                closeCart();
+            }
+        }
+    </script>
+
+    <!-- Premium Delivery Details Section -->
+    <div class="delivery-section">
+        <div class="delivery-container">
+            <h2 class="delivery-title">🚚 Fast Delivery</h2>
+            <div class="delivery-grid">
+                <div class="delivery-card">
+                    <div class="delivery-icon">⚡</div>
+                    <h3>30-45 Minutes</h3>
+                    <p>Quick delivery to your doorstep</p>
+                </div>
+                <div class="delivery-card">
+                    <div class="delivery-icon">🆓</div>
+                    <h3>Free Delivery</h3>
+                    <p>On orders above $25</p>
+                </div>
+                <div class="delivery-card">
+                    <div class="delivery-icon">📍</div>
+                    <h3>Live Tracking</h3>
+                    <p>Track your order in real-time</p>
+                </div>
+                <div class="delivery-card">
+                    <div class="delivery-icon">🌡️</div>
+                    <h3>Hot & Fresh</h3>
+                    <p>Insulated bags keep food warm</p>
+                </div>
+            </div>
+            <div class="delivery-note">
+                <p>📞 Need help? Call us: <strong>09014283462</strong></p>
+                <p>🕐 Open: 10:00 AM - 10:00 PM (7 days)</p>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        .delivery-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 60px 20px;
+            margin-top: 50px;
+        }
+
+        .delivery-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .delivery-title {
+            text-align: center;
+            color: white;
+            font-size: 36px;
+            margin-bottom: 40px;
+        }
+
+        .delivery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .delivery-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .delivery-icon {
+            font-size: 48px;
+            margin-bottom: 15px;
+        }
+
+        .delivery-card h3 {
+            color: #333;
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+
+        .delivery-card p {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .delivery-note {
+            text-align: center;
+            color: white;
+            background: rgba(255, 255, 255, 0.15);
+            padding: 25px;
+            border-radius: 15px;
+        }
+
+        @media (max-width: 768px) {
+            .delivery-title {
+                font-size: 28px;
+            }
+
+            .delivery-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</body>
+
+</html>
